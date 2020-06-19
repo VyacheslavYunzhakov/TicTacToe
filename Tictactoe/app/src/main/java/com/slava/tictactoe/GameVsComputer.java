@@ -126,7 +126,9 @@ public class GameVsComputer extends AppCompatActivity  {
                                 buttonList, Rows);
                         if  (chkForWin == 1) {
                             Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
-                            intent.putExtra("name", "Player");
+                            intent.putExtra("name1", "Player");
+                            intent.putExtra("name2", "Computer");
+                            intent.putExtra("winner", "Player");
                             intent.putExtra("game", "vsComputer");
                             startActivityForResult(intent, REQUEST_CODE);
                         }
@@ -153,9 +155,13 @@ public class GameVsComputer extends AppCompatActivity  {
 
                         if  (chkForWin!=1) {
                             int maxIndex = computerTurn();
+                            chkForWin = WinCheckUtils.checkForWin(maxIndex, arrayOfIndents,  results,
+                                    buttonList, Rows);
                             if (chkForWin == 2) {
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
-                                intent.putExtra("name", "Computer");
+                                intent.putExtra("name1", "Player");
+                                intent.putExtra("name2", "Computer");
+                                intent.putExtra("winner", "Computer");
                                 intent.putExtra("game", "vsComputer");
                                 startActivityForResult(intent, REQUEST_CODE);
                             }
