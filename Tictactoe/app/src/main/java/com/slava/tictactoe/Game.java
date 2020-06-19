@@ -39,30 +39,31 @@ public class Game extends AppCompatActivity  {
             }
         }
 
+        int indent = 4;
         for (int i = 0; i < Rows*Columns; i++){
-            if (i % Rows < 4) {
-                topIndent = i % 20;
+            if (i % Rows < indent) {
+                topIndent = i % Rows;
             }
-            if (i % Rows >= 4){
-                topIndent = 4;
+            if (i % Rows >= indent){
+                topIndent = indent;
             }
-            if (i % Rows < 16) {
-                botIndent = 4;
+            if (i % Rows < Rows - indent) {
+                botIndent = indent;
             }
-            if (i % Rows >= 16){
-                botIndent = 19 - (i % 20);
+            if (i % Rows >= Rows - indent){
+                botIndent = (Rows -1) - (i % Rows);
             }
-            if (i / Columns < 4) {
-                leftIndent = i / 20;
+            if (i / Columns < indent) {
+                leftIndent = i / Columns;
             }
-            if (i / Columns >= 4){
-                leftIndent = 4;
+            if (i / Columns >= indent){
+                leftIndent = indent;
             }
-            if (i / Columns < 16) {
-                rightIndent = 4;
+            if (i / Columns < Columns - indent) {
+                rightIndent = indent;
             }
-            if (i / Columns >= 16){
-                rightIndent = 19 - (i / 20);
+            if (i / Columns >= Columns - indent){
+                rightIndent = (Columns -1) - (i / Columns);
             }
             arrayOfIndents.add(arrayOfIndents.size(), new int[]{leftIndent, rightIndent, topIndent, botIndent});
         }

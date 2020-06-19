@@ -12,8 +12,9 @@ public class PutPrices {
 
     Random random = new Random();
     int randomBound = 400;
-
-    int[] checkablePositions = {-21, -20, -19, -1, 1, 19, 20, 21};
+    int Rows = 20;
+    int Columns = 20;
+    int[] checkablePositions = {-(Rows + 1), -Rows, -(Rows -1), -1, 1, Rows - 1,Rows , Rows +1};
 
     List<int[]> countOFPriceRaises = new ArrayList<>();
 
