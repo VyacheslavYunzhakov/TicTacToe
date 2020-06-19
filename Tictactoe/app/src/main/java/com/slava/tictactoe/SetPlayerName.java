@@ -31,11 +31,11 @@ public class SetPlayerName extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        if (player.equals("player1"));
+        if (player =="player1");
         {
             intent.putExtra("name1", editTextName.getText().toString());
         }
-        if (player.equals("player2"));
+        if (player == "player2");
         {
             intent.putExtra("name2", editTextName.getText().toString());
         }
