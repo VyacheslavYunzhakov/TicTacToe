@@ -117,8 +117,8 @@ public class GameVsComputer extends AppCompatActivity  {
                             results.set(position, 0);
 
 
-
-                        if  (WinCheckUtils.checkForWin(position, arrayOfIndents,  results)==1) {
+                        int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results);
+                        if  (chkForWin == 1) {
                             Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                             intent.putExtra("name", "Player");
                             startActivity(intent);
@@ -144,9 +144,9 @@ public class GameVsComputer extends AppCompatActivity  {
 
                         }
 
-                        if  (WinCheckUtils.checkForWin(position, arrayOfIndents,  results)!=1) {
+                        if  (chkForWin!=1) {
                             int maxIndex = computerturn();
-                            if (WinCheckUtils.checkForWin(maxIndex, arrayOfIndents,  results) == 2) {
+                            if (chkForWin == 2) {
                                 putPrices.putPricesAfterDef(maxIndex, results, prices, arrayOfIndentsForPrises);
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                                 intent.putExtra("name", "Computer");
