@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends AppCompatActivity  {
+
+    final int REQUEST_CODE = 1;
     private List<ImageButton> buttonList = new ArrayList<>();
     private List<Integer> results = new ArrayList<>();
     private List<int[]> arrayOfIndents = new ArrayList<>();
@@ -112,22 +114,21 @@ public class Game extends AppCompatActivity  {
                             counterForGame++;
                         }
 
-                        int checkForWin =WinCheckUtils.checkForWin(position, arrayOfIndents,  results);
+                        int checkForWin =WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
+                                buttonList);
                       if  (checkForWin == 1) {
                           WinCheckUtils.setButtonsNotClickable ( buttonList, results);
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                           intent.putExtra("name", name1);
                           intent.putExtra("game", "vsPlayer");
-                          startActivity(intent);
-                          finish();
+                          startActivityForResult(intent, REQUEST_CODE);
                       }
                       if (checkForWin == 2) {
                           WinCheckUtils.setButtonsNotClickable ( buttonList, results);
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                           intent.putExtra("name", name2);
                           intent.putExtra("game", "vsPlayer");
-                          startActivity(intent);
-                          finish();
+                          startActivityForResult(intent, REQUEST_CODE);
                       }
 
                     }
@@ -139,6 +140,16 @@ public class Game extends AppCompatActivity  {
             }
 
             tableLayout.addView(linearLayout, params);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            finish();
         }
     }
 }

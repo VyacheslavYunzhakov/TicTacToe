@@ -23,6 +23,12 @@ public class PlayerWin extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
 
+        //Give users two seconds to understand that one player won
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Intent intent = getIntent();
         String stringName = intent.getStringExtra("name");
 
@@ -48,11 +54,13 @@ public class PlayerWin extends AppCompatActivity implements View.OnClickListener
                 else{
                     intent = new Intent(this, GameVsComputer.class);
                 }
+                setResult(RESULT_OK, intent);
                 finish();
                 startActivity(intent);
                 break;
             case (R.id.buttonMainMenu):
                 intent = new Intent(this, MainMenu.class);
+                setResult(RESULT_OK, intent);
                 finish();
                 startActivity(intent);
                 break;

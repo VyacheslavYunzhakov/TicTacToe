@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Random;
 
 public class GameVsComputer extends AppCompatActivity  {
+
+    final int REQUEST_CODE = 1;
     private List<ImageButton> buttonList = new ArrayList<>();
     protected  List<Integer> results = new ArrayList<>();
     private List<int[]> arrayOfIndents = new ArrayList<>();
@@ -120,12 +122,13 @@ public class GameVsComputer extends AppCompatActivity  {
                             results.set(position, 0);
 
 
-                        int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results);
+                        int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
+                                buttonList);
                         if  (chkForWin == 1) {
                             Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                             intent.putExtra("name", "Player");
                             intent.putExtra("game", "vsComputer");
-                            startActivity(intent);
+                            startActivityForResult(intent, REQUEST_CODE);
                         }
 
                         prices.set(position,0);
@@ -154,7 +157,7 @@ public class GameVsComputer extends AppCompatActivity  {
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                                 intent.putExtra("name", "Computer");
                                 intent.putExtra("game", "vsComputer");
-                                startActivity(intent);
+                                startActivityForResult(intent, REQUEST_CODE);
                             }
                             else{putPrices.putPricesAfterDef(maxIndex, results, prices, arrayOfIndentsForPrises);}
                         }
@@ -173,6 +176,16 @@ public class GameVsComputer extends AppCompatActivity  {
         }
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            finish();
+        }
     }
 
     public int computerTurn(){
