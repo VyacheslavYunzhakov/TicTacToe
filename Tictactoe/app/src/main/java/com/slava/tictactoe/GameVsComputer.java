@@ -150,7 +150,6 @@ public class GameVsComputer extends AppCompatActivity  {
                         if  (chkForWin!=1) {
                             int maxIndex = computerTurn();
                             if (chkForWin == 2) {
-                                putPrices.putPricesAfterDef(maxIndex, results, prices, arrayOfIndentsForPrises);
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                                 intent.putExtra("name", "Computer");
                                 startActivity(intent);
