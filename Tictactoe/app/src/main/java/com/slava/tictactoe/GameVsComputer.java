@@ -124,13 +124,14 @@ public class GameVsComputer extends AppCompatActivity  {
                         if  (chkForWin == 1) {
                             Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                             intent.putExtra("name", "Player");
+                            intent.putExtra("game", "vsComputer");
                             startActivity(intent);
                         }
 
                         prices.set(position,0);
                         for (int chkPos :checkablePositions)
                         {
-                            if (position + chkPos < 400 & position + chkPos >= 0) {
+                            if (position + chkPos < Rows*Columns & position + chkPos >= 0) {
                                 if (results.get(position + chkPos) == 6) {
                                     prices.set(position + chkPos, prices.get(position + chkPos) + 400);
                                 }
@@ -152,6 +153,7 @@ public class GameVsComputer extends AppCompatActivity  {
                             if (chkForWin == 2) {
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                                 intent.putExtra("name", "Computer");
+                                intent.putExtra("game", "vsComputer");
                                 startActivity(intent);
                             }
                             else{putPrices.putPricesAfterDef(maxIndex, results, prices, arrayOfIndentsForPrises);}

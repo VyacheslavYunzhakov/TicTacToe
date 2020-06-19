@@ -1,6 +1,8 @@
 package com.slava.tictactoe;
 
 
+import android.widget.ImageButton;
+
 import java.util.List;
 
 public  class WinCheckUtils {
@@ -48,5 +50,12 @@ public  class WinCheckUtils {
             }
         }
         return 0;
+    }
+
+    public static void setButtonsNotClickable (List<ImageButton> buttonList, List<Integer> results) {
+        for (int k = 0; k < results.size(); k++){
+            ImageButton buttonNotClickable = buttonList.get(k);
+            buttonNotClickable.setClickable(false);
+        }
     }
 }

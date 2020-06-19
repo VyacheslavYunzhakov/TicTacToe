@@ -195,7 +195,7 @@ public class PutPrices {
                 }
                 if (Arrays.equals(combinationArray, new int[]{1, 0, 0, 0, 6}))
                 {
-                    prices.set(position + (i + 4) * checkingPosition, 15000 + random.nextInt(400));
+                    prices.set(position + (i + 4) * checkingPosition, 15000 + random.nextInt(randomBound));
                 }
             }
 
