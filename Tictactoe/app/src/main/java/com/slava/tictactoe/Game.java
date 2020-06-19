@@ -40,28 +40,28 @@ public class Game extends AppCompatActivity  {
         }
 
         for (int i = 0; i < Rows*Columns; i++){
-            if (i % 20 < 4) {
+            if (i % Rows < 4) {
                 topIndent = i % 20;
             }
-            if (i % 20 >= 4){
+            if (i % Rows >= 4){
                 topIndent = 4;
             }
-            if (i % 20 < 16) {
+            if (i % Rows < 16) {
                 botIndent = 4;
             }
-            if (i % 20 >= 16){
+            if (i % Rows >= 16){
                 botIndent = 19 - (i % 20);
             }
-            if (i / 20 < 4) {
+            if (i / Columns < 4) {
                 leftIndent = i / 20;
             }
-            if (i / 20 >= 4){
+            if (i / Columns >= 4){
                 leftIndent = 4;
             }
-            if (i / 20 < 16) {
+            if (i / Columns < 16) {
                 rightIndent = 4;
             }
-            if (i / 20 >= 16){
+            if (i / Columns >= 16){
                 rightIndent = 19 - (i / 20);
             }
             arrayOfIndents.add(arrayOfIndents.size(), new int[]{leftIndent, rightIndent, topIndent, botIndent});
@@ -110,13 +110,13 @@ public class Game extends AppCompatActivity  {
                             results.set(position, 1);
                             counterForGame++;
                         }
-                      if  (CheckForWin.checkForWin(position, arrayOfIndents,  results)==1) {
-                          Intent intent = new Intent(getApplicationContext(), FirstPlayerWin.class);
+                      if  (WinCheckUtils.checkForWin(position, arrayOfIndents,  results)==1) {
+                          Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                           intent.putExtra("name", name1);
                           startActivity(intent);
                       }
-                      if (CheckForWin.checkForWin(position, arrayOfIndents,  results)==2) {
-                          Intent intent = new Intent(getApplicationContext(), FirstPlayerWin.class);
+                      if (WinCheckUtils.checkForWin(position, arrayOfIndents,  results)==2) {
+                          Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                           intent.putExtra("name", name2);
                           startActivity(intent);
                       }

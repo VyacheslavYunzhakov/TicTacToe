@@ -1,7 +1,6 @@
 package com.slava.tictactoe;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,11 +40,13 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         Intent intent;
         switch (v.getId()) {
             case R.id.buttonPlayer1:
-                intent = new Intent(this, P1Name.class);
+                intent = new Intent(this, SetPlayerName.class);
+                intent.putExtra("player", "player1");
                 startActivityForResult(intent, REQUEST_CODE_P1);
                 break;
             case R.id.buttonPlayer2:
-                intent = new Intent(this, P2Name.class);
+                intent = new Intent(this, SetPlayerName.class);
+                intent.putExtra("player", "player2");
                 startActivityForResult(intent, REQUEST_CODE_P2);
                 break;
             case R.id.buttonStart:
@@ -81,5 +82,4 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             }
         }
     }
-    // for github check
 }

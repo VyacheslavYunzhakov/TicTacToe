@@ -15,7 +15,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstPlayerWin"></activity>
+        <activity android:name=".PlayerWin"></activity>
         <activity android:name=".SecondPlayerWin"></activity>
         <activity android:name=".Game">
             <intent-filter>
@@ -23,10 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameVsComputer"></activity>
-        <activity android:name=".P1Name"
-            android:theme="@style/Theme.AppCompat.Dialog">
-        </activity>
-        <activity android:name=".P2Name"
+        <activity android:name=".SetPlayerName"
             android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
     </application>

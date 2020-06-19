@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 
-public class FirstPlayerWin extends AppCompatActivity {
+public class PlayerWin extends AppCompatActivity {
 
     TextView textView;
 

@@ -22,11 +22,9 @@ public class PutPrices {
                                                  int indexIncrease, List<int[]> arrayOfIndentsForPrises,
                                                 List<Integer> results)
     {
-        int Indent1;
-        int Indent2;
+        int Indent1 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[0];
+        int Indent2 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[1];
 
-            Indent1 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[0];
-            Indent2 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[1];
         for (int i = Indent1; i <= Indent2; i++) {
             int[] combinationArray = new int[combination.length];
             for (int j = 0; j < combination.length; j++) {
@@ -44,10 +42,9 @@ public class PutPrices {
                                                           int priceIncrease, int indexIncrease,
                                                           List<int[]> arrayOfIndentsForPrises,
                                                           List<Integer> results) {
-        int Indent1 = 0;
-        int Indent2 = 0;
-        Indent1 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[0];
-        Indent2 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[1];
+        int Indent1 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[0];
+        int Indent2 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[1];
+
         for (int i = Indent1; i <= Indent2;i++) {
             int[] combinationArray = new int[combination.length];
             for (int j = 0; j < combination.length; j++) {

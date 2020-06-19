@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
-public  class CheckForWin {
+public  class WinCheckUtils {
 
     public static int checkForWin(int position, List<int[]> arrayOfIndents, List<Integer> results) {
 
