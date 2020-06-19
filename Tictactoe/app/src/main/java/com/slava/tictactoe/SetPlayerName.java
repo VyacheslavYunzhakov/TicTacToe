@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SetPlayerName extends AppCompatActivity implements View.OnClickListener {
     EditText editTextName;
     Button buttonOK;
-    Intent previousintent = new Intent();
-    String player = previousintent.getStringExtra("player");
+    Intent previousIntent = new Intent();
+    String player = previousIntent.getStringExtra("player");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class SetPlayerName extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        if (player =="player1");
+        if (player == "player1");
         {
             intent.putExtra("name1", editTextName.getText().toString());
         }
