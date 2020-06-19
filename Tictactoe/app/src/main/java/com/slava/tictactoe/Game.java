@@ -110,12 +110,14 @@ public class Game extends AppCompatActivity  {
                             results.set(position, 1);
                             counterForGame++;
                         }
-                      if  (WinCheckUtils.checkForWin(position, arrayOfIndents,  results)==1) {
+
+                        int checkForWin =WinCheckUtils.checkForWin(position, arrayOfIndents,  results);
+                      if  (checkForWin == 1) {
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                           intent.putExtra("name", name1);
                           startActivity(intent);
                       }
-                      if (WinCheckUtils.checkForWin(position, arrayOfIndents,  results)==2) {
+                      if (checkForWin == 2) {
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                           intent.putExtra("name", name2);
                           startActivity(intent);
