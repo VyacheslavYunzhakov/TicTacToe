@@ -32,7 +32,7 @@ public class Game extends AppCompatActivity  {
         final String name1 = prvIntent.getStringExtra("name1");
         final String name2 = prvIntent.getStringExtra("name2");
 
-        int Rows = 20;
+        final int Rows = 20;
         int Columns = 20;
 
         for (int i = 0; i < Rows; i++) {
@@ -115,7 +115,7 @@ public class Game extends AppCompatActivity  {
                         }
 
                         int checkForWin =WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
-                                buttonList);
+                                buttonList, Rows);
                       if  (checkForWin == 1) {
                           WinCheckUtils.setButtonsNotClickable ( buttonList, results);
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);

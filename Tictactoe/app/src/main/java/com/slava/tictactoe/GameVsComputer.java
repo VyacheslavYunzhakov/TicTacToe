@@ -123,7 +123,7 @@ public class GameVsComputer extends AppCompatActivity  {
 
 
                         int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
-                                buttonList);
+                                buttonList, Rows);
                         if  (chkForWin == 1) {
                             Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                             intent.putExtra("name", "Player");
