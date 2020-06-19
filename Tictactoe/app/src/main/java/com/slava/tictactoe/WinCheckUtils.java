@@ -7,8 +7,9 @@ import java.util.List;
 
 public  class WinCheckUtils {
 
+
     public static int checkForWin(int position, List<int[]> arrayOfIndents, List<Integer> results,
-                                  List<ImageButton> buttonList) {
+                                  List<ImageButton> buttonList, int Rows) {
 
         int checkResult;
         checkResult = checking( position,  results, arrayOfIndents.get(position)[2],  100,
@@ -17,17 +18,17 @@ public  class WinCheckUtils {
         if (checkResult==2){return 2;}
 
         checkResult = checking( position,  results, arrayOfIndents.get(position)[0],  100,
-                arrayOfIndents.get(position)[1], 100, 20, buttonList);
+                arrayOfIndents.get(position)[1], 100, Rows, buttonList);
         if (checkResult==1){return 1;}
         if (checkResult==2){return 2;}
 
         checkResult = checking( position,  results, arrayOfIndents.get(position)[0],  arrayOfIndents.get(position)[3],
-                arrayOfIndents.get(position)[1], arrayOfIndents.get(position)[2], 19, buttonList);
+                arrayOfIndents.get(position)[1], arrayOfIndents.get(position)[2], Rows - 1, buttonList);
         if (checkResult==1){return 1;}
         if (checkResult==2){return 2;}
 
         checkResult = checking( position,  results, arrayOfIndents.get(position)[0],  arrayOfIndents.get(position)[2],
-                arrayOfIndents.get(position)[1], arrayOfIndents.get(position)[3], 21, buttonList);
+                arrayOfIndents.get(position)[1], arrayOfIndents.get(position)[3], Rows + 1, buttonList);
         if (checkResult==1){return 1;}
         if (checkResult==2){return 2;}
         return 0;

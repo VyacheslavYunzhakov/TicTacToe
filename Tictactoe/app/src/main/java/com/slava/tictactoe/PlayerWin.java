@@ -18,6 +18,7 @@ public class PlayerWin extends AppCompatActivity implements View.OnClickListener
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class PlayerWin extends AppCompatActivity implements View.OnClickListener
             e.printStackTrace();
         }
         Intent intent = getIntent();
-        String stringName = intent.getStringExtra("name");
+        String stringName = intent.getStringExtra("winner");
 
         buttonMainMenu = findViewById(R.id.buttonMainMenu);
         buttonRematch = findViewById(R.id.buttonRematch);
@@ -48,11 +49,19 @@ public class PlayerWin extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         Intent intent = getIntent();;
         String stringGame = intent.getStringExtra("game");
+        String name1 = intent.getStringExtra("name1");
+        String name2 = intent.getStringExtra("name2");
         switch (v.getId()) {
             case (R.id.buttonRematch):
-                if (stringGame == "vsPlayer") {}
+                if (stringGame.equals("vsPlayer")) {
+                    intent = new Intent(this, Game.class);
+                    intent.putExtra("name1", name1);
+                    intent.putExtra("name2", name2);
+                }
                 else{
                     intent = new Intent(this, GameVsComputer.class);
+                    intent.putExtra("name1", name1);
+                    intent.putExtra("name2", name2);
                 }
                 setResult(RESULT_OK, intent);
                 finish();

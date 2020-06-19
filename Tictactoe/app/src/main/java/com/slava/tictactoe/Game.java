@@ -32,7 +32,7 @@ public class Game extends AppCompatActivity  {
         final String name1 = prvIntent.getStringExtra("name1");
         final String name2 = prvIntent.getStringExtra("name2");
 
-        int Rows = 20;
+        final int Rows = 20;
         int Columns = 20;
 
         for (int i = 0; i < Rows; i++) {
@@ -41,7 +41,7 @@ public class Game extends AppCompatActivity  {
             }
         }
 
-        int indent = 4;
+        final int indent = 4;
         for (int i = 0; i < Rows*Columns; i++){
             if (i % Rows < indent) {
                 topIndent = i % Rows;
@@ -115,18 +115,22 @@ public class Game extends AppCompatActivity  {
                         }
 
                         int checkForWin =WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
-                                buttonList);
+                                buttonList, Rows);
                       if  (checkForWin == 1) {
                           WinCheckUtils.setButtonsNotClickable ( buttonList, results);
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
-                          intent.putExtra("name", name1);
+                          intent.putExtra("name1", name1);
+                          intent.putExtra("name2", name2);
+                          intent.putExtra("winner", name1);
                           intent.putExtra("game", "vsPlayer");
                           startActivityForResult(intent, REQUEST_CODE);
                       }
                       if (checkForWin == 2) {
                           WinCheckUtils.setButtonsNotClickable ( buttonList, results);
                           Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
-                          intent.putExtra("name", name2);
+                          intent.putExtra("name1", name1);
+                          intent.putExtra("name2", name2);
+                          intent.putExtra("winner", name2);
                           intent.putExtra("game", "vsPlayer");
                           startActivityForResult(intent, REQUEST_CODE);
                       }
