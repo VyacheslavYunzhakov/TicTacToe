@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Random;
 
 public class GameVsComputer extends AppCompatActivity  {
+
+    final int REQUEST_CODE = 1;
     private List<ImageButton> buttonList = new ArrayList<>();
     protected  List<Integer> results = new ArrayList<>();
     private List<int[]> arrayOfIndents = new ArrayList<>();
@@ -120,17 +122,19 @@ public class GameVsComputer extends AppCompatActivity  {
                             results.set(position, 0);
 
 
-                        int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results);
+                        int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
+                                buttonList);
                         if  (chkForWin == 1) {
                             Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                             intent.putExtra("name", "Player");
-                            startActivity(intent);
+                            intent.putExtra("game", "vsComputer");
+                            startActivityForResult(intent, REQUEST_CODE);
                         }
 
                         prices.set(position,0);
                         for (int chkPos :checkablePositions)
                         {
-                            if (position + chkPos < 400 & position + chkPos >= 0) {
+                            if (position + chkPos < Rows*Columns & position + chkPos >= 0) {
                                 if (results.get(position + chkPos) == 6) {
                                     prices.set(position + chkPos, prices.get(position + chkPos) + 400);
                                 }
@@ -152,7 +156,8 @@ public class GameVsComputer extends AppCompatActivity  {
                             if (chkForWin == 2) {
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                                 intent.putExtra("name", "Computer");
-                                startActivity(intent);
+                                intent.putExtra("game", "vsComputer");
+                                startActivityForResult(intent, REQUEST_CODE);
                             }
                             else{putPrices.putPricesAfterDef(maxIndex, results, prices, arrayOfIndentsForPrises);}
                         }
@@ -171,6 +176,16 @@ public class GameVsComputer extends AppCompatActivity  {
         }
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            finish();
+        }
     }
 
     public int computerTurn(){
