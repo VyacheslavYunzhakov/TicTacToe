@@ -1,6 +1,5 @@
 package com.slava.tictactoe;
 
-import android.util.Log;
 
 import java.util.List;
 
@@ -40,13 +39,11 @@ public  class WinCheckUtils {
             int counter = 0;
             for (int l = 0; l < 5; l++) {
                 counter += results.get(position + (direction * k) + direction * l);
-                Log.d("myLogs", "" + counter + " " + direction + " " + k);
             }
             if (counter == 5) {
                 return 2;
             }
             if (counter == 0) {
-                Log.d("myLogs", "все ноль");
                 return 1;
             }
         }

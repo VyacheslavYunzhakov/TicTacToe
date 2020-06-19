@@ -21,7 +21,9 @@ public class GameVsComputer extends AppCompatActivity  {
     protected List<int[]> arrayOfIndentsForPrises = new ArrayList<>();
     protected List<Integer> prices = new ArrayList<>();
     int leftIndent = 4, rightIndent = 4, topIndent = 4, botIndent = 4;
-    int[] checkablePositions = {-21, -20, -19, -1, 1, 19, 20, 21};
+    int Rows = 20;
+    int Columns = 20;
+    int[] checkablePositions = {-(Rows + 1), -Rows, -(Rows -1), -1, 1, Rows - 1,Rows , Rows +1};
     Random random = new Random();
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -32,8 +34,7 @@ public class GameVsComputer extends AppCompatActivity  {
 
         final PutPrices putPrices = new PutPrices();
 
-        int Rows = 20;
-        int Columns = 20;
+
         for (int i = 0; i < Rows; i++) {
             for (int j = 0; j < Columns; j++) {
                 results.add(6); //6-unfilled board, will fill it with 1 and 0
@@ -44,39 +45,41 @@ public class GameVsComputer extends AppCompatActivity  {
                 prices.add(random.nextInt(400));
             }
         }
+
+        int indent = 4;
         for (int i = 0; i < Rows*Columns; i++){
-            if (i % Rows < 4) {
-                topIndent = i % 20;
+            if (i % Rows < indent) {
+                topIndent = i % Rows;
             }
-            if (i % Rows >= 4){
-                topIndent = 4;
+            if (i % Rows >= indent){
+                topIndent = indent;
             }
-            if (i % Rows < 16) {
-                botIndent = 4;
+            if (i % Rows < Rows - indent) {
+                botIndent = indent;
             }
-            if (i % Rows >= 16){
-                botIndent = 19 - (i % 20);
+            if (i % Rows >= Rows - indent){
+                botIndent = (Rows -1) - (i % Rows);
             }
-            if (i / Columns < 4) {
-                leftIndent = i / 20;
+            if (i / Columns < indent) {
+                leftIndent = i / Columns;
             }
-            if (i / Columns >= 4){
-                leftIndent = 4;
+            if (i / Columns >= indent){
+                leftIndent = indent;
             }
-            if (i / Columns < 16) {
-                rightIndent = 4;
+            if (i / Columns < Columns - indent) {
+                rightIndent = indent;
             }
-            if (i / Columns >= 16){
-                rightIndent = 19 - (i / 20);
+            if (i / Columns >= Columns - indent){
+                rightIndent = (Columns -1) - (i / Columns);
             }
             arrayOfIndents.add(arrayOfIndents.size(), new int[]{leftIndent, rightIndent, topIndent, botIndent});
         }
 
         for (int i = 0; i < Rows*Columns; i++){
-                topIndent = i % 20;
-                botIndent = 19 - (i % 20);
-                leftIndent = i / 20;
-                rightIndent = 19 - (i / 20);
+                topIndent = i % Rows;
+                botIndent = (Rows - 1) - (i % Rows);
+                leftIndent = i / Columns;
+                rightIndent = (Columns - 1) - (i / Columns);
             arrayOfIndentsForPrises.add(arrayOfIndentsForPrises.size(), new int[]{leftIndent, rightIndent, topIndent, botIndent});
         }
 
@@ -145,7 +148,7 @@ public class GameVsComputer extends AppCompatActivity  {
                         }
 
                         if  (chkForWin!=1) {
-                            int maxIndex = computerturn();
+                            int maxIndex = computerTurn();
                             if (chkForWin == 2) {
                                 Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
                                 intent.putExtra("name", "Computer");
@@ -170,7 +173,7 @@ public class GameVsComputer extends AppCompatActivity  {
 
     }
 
-    public int computerturn(){
+    public int computerTurn(){
         int maxValue = 0;
         int maxIndex = 0;
         for (int i = 0; i < prices.size(); i++) {
