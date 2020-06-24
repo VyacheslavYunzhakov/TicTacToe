@@ -12,36 +12,41 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class Game extends AppCompatActivity  {
+public class Game extends AppCompatActivity implements View.OnClickListener {
 
     final int REQUEST_CODE = 1;
     private List<ImageButton> buttonList = new ArrayList<>();
-    private List<Integer> results = new ArrayList<>();
+    protected  List<Integer> results = new ArrayList<>();
     private List<int[]> arrayOfIndents = new ArrayList<>();
+    protected List<int[]> arrayOfIndentsForPrises = new ArrayList<>();
+    protected List<Integer> prices = new ArrayList<>();
     int leftIndent = 4, rightIndent = 4, topIndent = 4, botIndent = 4;
-
+    int Rows = 20;
+    int Columns = 20;
+    int[] checkablePositions = {-(Rows + 1), -Rows, -(Rows -1), -1, 1, Rows - 1,Rows , Rows +1};
+    Random random = new Random();
     int counterForGame = 1;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Intent prvIntent = getIntent();
-        final String name1 = prvIntent.getStringExtra("name1");
-        final String name2 = prvIntent.getStringExtra("name2");
-
-        final int Rows = 20;
-        int Columns = 20;
-
         for (int i = 0; i < Rows; i++) {
             for (int j = 0; j < Columns; j++) {
-                results.add(6);
+                results.add(6); //6-unfilled board, will fill it with 1 and 0
+            }
+        }
+        for (int i = 0; i < Rows; i++) {
+            for (int j = 0; j < Columns; j++) {
+                prices.add(random.nextInt(400));
             }
         }
 
-        final int indent = 4;
+        int indent = 4;
         for (int i = 0; i < Rows*Columns; i++){
             if (i % Rows < indent) {
                 topIndent = i % Rows;
@@ -70,6 +75,14 @@ public class Game extends AppCompatActivity  {
             arrayOfIndents.add(arrayOfIndents.size(), new int[]{leftIndent, rightIndent, topIndent, botIndent});
         }
 
+        for (int i = 0; i < Rows*Columns; i++){
+                topIndent = i % Rows;
+                botIndent = (Rows - 1) - (i % Rows);
+                leftIndent = i / Columns;
+                rightIndent = (Columns - 1) - (i / Columns);
+            arrayOfIndentsForPrises.add(arrayOfIndentsForPrises.size(), new int[]{leftIndent, rightIndent, topIndent, botIndent});
+        }
+
 
         LinearLayout tableLayout = findViewById(R.id.LinearLayoutGame);
 
@@ -96,55 +109,68 @@ public class Game extends AppCompatActivity  {
 
                 button.setImageResource(R.drawable.clear);
                 button.setId(buttonList.size());
-
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = v.getId();
-                        ImageButton button = buttonList.get(position);
-                        if (counterForGame % 2 != 0) {
-                            button.setImageResource(R.drawable.cross);
-                            button.setClickable(false);
-                            results.set(position, 0);
-                            counterForGame++;
-                        } else {
-                            button.setImageResource(R.drawable.toe);
-                            button.setClickable(false);
-                            results.set(position, 1);
-                            counterForGame++;
-                        }
-
-                        int checkForWin =WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
-                                buttonList, Rows);
-                      if  (checkForWin == 1) {
-                          WinCheckUtils.setButtonsNotClickable ( buttonList, results);
-                          Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
-                          intent.putExtra("name1", name1);
-                          intent.putExtra("name2", name2);
-                          intent.putExtra("winner", name1);
-                          intent.putExtra("game", "vsPlayer");
-                          startActivityForResult(intent, REQUEST_CODE);
-                      }
-                      if (checkForWin == 2) {
-                          WinCheckUtils.setButtonsNotClickable ( buttonList, results);
-                          Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
-                          intent.putExtra("name1", name1);
-                          intent.putExtra("name2", name2);
-                          intent.putExtra("winner", name2);
-                          intent.putExtra("game", "vsPlayer");
-                          startActivityForResult(intent, REQUEST_CODE);
-                      }
-
-                    }
-
-
-                });
+                button.setOnClickListener(this);
                 buttonList.add(button);
                 linearLayout.addView(button);
             }
 
             tableLayout.addView(linearLayout, params);
         }
+
+
+    }
+
+    public void onClick(View v) {
+        final PutPrices putPrices = new PutPrices();
+        int position = v.getId();
+        ImageButton button = buttonList.get(position);
+
+        if (counterForGame % 2 != 0) {
+            button.setImageResource(R.drawable.cross);
+            button.setClickable(false);
+            results.set(position, 0);
+            prices.set(position,0);
+            for (int chkPos :checkablePositions)
+            {
+                if (position + chkPos < Rows*Columns & position + chkPos >= 0) {
+                    if (results.get(position + chkPos) == 6) {
+                        prices.set(position + chkPos, prices.get(position + chkPos) + 400);
+                    }
+                }
+            }
+            int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
+                    buttonList, Rows);
+            if  (chkForWin == 1) {
+                startActivityForResult(previousIntent(), REQUEST_CODE);
+            }
+            putPrices.putPricesDef(position, results, prices, arrayOfIndentsForPrises);
+            for (int index = 0; index < results.size(); index ++)
+            {
+                if (results.get(index) == 1){
+                    putPrices.putPricesAttack(index, results, prices, arrayOfIndentsForPrises);
+                }
+
+            }
+            counterForGame++;
+            Intent intent = getIntent();
+            final String game = intent.getStringExtra("game");
+            if (game.equals("vsComputer")) {
+                computerTurn();
+            }
+        } else {
+            button.setImageResource(R.drawable.toe);
+            button.setClickable(false);
+            results.set(position, 1);
+            prices.set(position,0);
+            int chkForWin = WinCheckUtils.checkForWin(position, arrayOfIndents,  results,
+                    buttonList, Rows);
+                if (chkForWin == 2) {
+                    startActivityForResult(previousIntent(), REQUEST_CODE);
+                }
+                else{putPrices.putPricesAfterDef(position, results, prices, arrayOfIndentsForPrises);}
+            counterForGame++;
+        }
+
     }
 
     @Override
@@ -156,4 +182,33 @@ public class Game extends AppCompatActivity  {
             finish();
         }
     }
+
+    protected Intent previousIntent (){
+        Intent prvIntent = getIntent();
+        final String name1 = prvIntent.getStringExtra("name1");
+        final String name2 = prvIntent.getStringExtra("name2");
+        final String game = prvIntent.getStringExtra("game");
+        Intent intent = new Intent(getApplicationContext(), PlayerWin.class);
+        intent.putExtra("name1", name1);
+        intent.putExtra("name2", name2);
+        if (counterForGame % 2 != 0) {
+                intent.putExtra("winner", name1);
+        } else {intent.putExtra("winner", name2);}
+        intent.putExtra("game", game);
+        return intent;
+    }
+
+    public void computerTurn(){
+        int maxValue = 0;
+        int maxIndex = 0;
+        for (int i = 0; i < prices.size(); i++) {
+            if(maxValue <= prices.get(i)){
+                maxValue = prices.get(i);
+                maxIndex = i;
+            }
+        }
+        ImageButton button = buttonList.get(maxIndex);
+        onClick(button);
+    }
+
 }
