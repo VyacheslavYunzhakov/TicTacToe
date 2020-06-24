@@ -1,22 +1,20 @@
 package com.slava.tictactoe;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 
-public class PutPrices {
+class PutPrices {
 
-    Random random = new Random();
-    int randomBound = 400;
-    int Rows = 20;
+    private Random random = new Random();
+    private int randomBound = 400;
+    private int Rows = 20;
     int Columns = 20;
-    int[] checkablePositions = {-(Rows + 1), -Rows, -(Rows -1), -1, 1, Rows - 1,Rows , Rows +1};
+    private int[] checkablePositions = {-(Rows + 1), -Rows, -(Rows -1), -1, 1, Rows - 1,Rows , Rows +1};
 
-    List<int[]> countOFPriceRaises = new ArrayList<>();
+    private List<int[]> countOFPriceRaises = new ArrayList<>();
 
     private void puttingPricesOfCombinationsDef(int[] combination, List<Integer> prices, int position,
                                                  int checkingPosition, int priceIncrease,
@@ -38,11 +36,11 @@ public class PutPrices {
             }
         }
     }
-    private List<int[]> puttingPricesOfCombinationsAttack(int[] combination, List<Integer> prices,
-                                                          int position,int checkingPosition,
-                                                          int priceIncrease, int indexIncrease,
-                                                          List<int[]> arrayOfIndentsForPrises,
-                                                          List<Integer> results) {
+    private void puttingPricesOfCombinationsAttack(int[] combination, List<Integer> prices,
+                                                   int position, int checkingPosition,
+                                                   int priceIncrease, int indexIncrease,
+                                                   List<int[]> arrayOfIndentsForPrises,
+                                                   List<Integer> results) {
         int Indent1 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[0];
         int Indent2 = placerOfIndents(position,checkingPosition,combination.length - 1, arrayOfIndentsForPrises)[1];
 
@@ -63,10 +61,9 @@ public class PutPrices {
                 }
             }
         }
-        return countOFPriceRaises;
     }
 
-    protected void putPricesDef(int position, List<Integer> results, List<Integer> prices, List<int[]> arrayOfIndentsForPrises) {
+    void putPricesDef(int position, List<Integer> results, List<Integer> prices, List<int[]> arrayOfIndentsForPrises) {
 
         for (int checkingPosition : checkablePositions){
 
@@ -123,7 +120,7 @@ public class PutPrices {
         }
     }
 
-    protected void putPricesAttack(int position, List<Integer> results, List<Integer> prices, List<int[]> arrayOfIndentsForPrises) {
+    void putPricesAttack(int position, List<Integer> results, List<Integer> prices, List<int[]> arrayOfIndentsForPrises) {
         for (int checkingPosition : checkablePositions){
 
 
@@ -177,7 +174,7 @@ public class PutPrices {
 
     }
 
-    protected void putPricesAfterDef(int position, List<Integer> results, List<Integer> prices, List<int[]> arrayOfIndentsForPrises) {
+    void putPricesAfterDef(int position, List<Integer> results, List<Integer> prices, List<int[]> arrayOfIndentsForPrises) {
         int Intendent1 = 0;
         int Intendent2 = 0;
         for (int checkingPosition : checkablePositions){
@@ -238,7 +235,7 @@ public class PutPrices {
         }
     }
 
-    public  int[] placerOfIndents(int position, int checkingPosition, int int1,  List<int[]> arrayOfIndentsForPrises)
+    private int[] placerOfIndents(int position, int checkingPosition, int int1, List<int[]> arrayOfIndentsForPrises)
     {
         int Indent1 = 0;
         int Indent2 = 0;

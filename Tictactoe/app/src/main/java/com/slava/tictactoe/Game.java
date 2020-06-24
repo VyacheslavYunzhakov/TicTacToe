@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -199,7 +198,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         return intent;
     }
 
-    public int computerTurn(){
+    public void computerTurn(){
         int maxValue = 0;
         int maxIndex = 0;
         for (int i = 0; i < prices.size(); i++) {
@@ -210,7 +209,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         }
         ImageButton button = buttonList.get(maxIndex);
         onClick(button);
-        return maxIndex;
     }
 
 }
