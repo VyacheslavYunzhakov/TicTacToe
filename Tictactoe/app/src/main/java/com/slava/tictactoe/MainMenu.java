@@ -53,12 +53,14 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
                 intent = new Intent(this, Game.class);
                 intent.putExtra("name1", buttonPlayer1.getText().toString());
                 intent.putExtra("name2", buttonPlayer2.getText().toString());
+                intent.putExtra("game", "vsPlayer");
                 startActivity(intent);
                 break;
             case R.id.buttonComputer:
-                intent = new Intent(this, GameVsComputer.class);
-                intent.putExtra("name1", buttonPlayer1.getText().toString());
-                intent.putExtra("name2", buttonPlayer2.getText().toString());
+                intent = new Intent(this, Game.class);
+                intent.putExtra("name1", "Player");
+                intent.putExtra("name2", "Computer");
+                intent.putExtra("game", "vsComputer");
                 startActivity(intent);
             break;
         }

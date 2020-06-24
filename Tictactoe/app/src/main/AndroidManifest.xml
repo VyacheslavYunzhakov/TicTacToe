@@ -17,12 +17,7 @@
         </activity>
         <activity android:name=".PlayerWin"></activity>
         <activity android:name=".SecondPlayerWin"></activity>
-        <activity android:name=".Game">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".GameVsComputer"></activity>
+        <activity android:name=".Game"></activity>
         <activity android:name=".SetPlayerName"
             android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
